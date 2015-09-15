@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Contador De Faltas</string>
+
+    <string name="default_value">N/A</string>
+    <string name="pontos">Pontos</string>
+    <string name="adicionar_materia">Adiciona Matéria</string>
+    <string name="action_settings">Settings</string>
+</resources>
