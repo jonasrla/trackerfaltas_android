@@ -4,17 +4,36 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_ime1"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.AppCompat.NoActionBar" >
         <activity
             android:name=".Index"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".AdicionaMateria"
+            android:label="@string/title_activity_adiciona_materia"
+            android:parentActivityName=".Index"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lima.rocha.contadordefaltas.Index" />
+        </activity>
+        <activity
+            android:name=".AdicionaFalta"
+            android:label="@string/title_activity_adiciona_falta"
+            android:parentActivityName=".Index"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lima.rocha.contadordefaltas.Index" />
         </activity>
     </application>
 

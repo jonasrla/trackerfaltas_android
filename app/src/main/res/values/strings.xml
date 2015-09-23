@@ -3,6 +3,16 @@
 
     <string name="default_value">N/A</string>
     <string name="pontos">Pontos</string>
-    <string name="adicionar_materia">Adiciona Matéria</string>
+    <string name="adicionar">Adicionar</string>
     <string name="action_settings">Settings</string>
+    <string name="delete">Deletar</string>
+    <string name="title_activity_adiciona_materia">AdicionaMateria</string>
+    <string name="dica">Deixe 0 se não souber</string>
+    <string name="Field1">Nome da Matéria</string>
+    <string name="Field2">Número Total de Aulas</string>
+    <string name="yes">Deletar</string>
+    <string name="no">Cancelar</string>
+    <string name="title_activity_adiciona_falta">AdicionaFalta</string>
+    <string name="faltas">Faltas</string>
+    <string name="faltasJustificadas">Faltas Justificadas</string>
 </resources>

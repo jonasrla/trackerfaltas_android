@@ -1,17 +1,19 @@
 package lima.rocha.contadordefaltas;
 
+
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class GerenciaMateria {
-    private int totalDePontos;
+    final private String TAG = "GERENCIA";
     private Map<String,Materia> materias;
     private String lastMateria;
     private int [] lastValues;
 
     public GerenciaMateria(){
-        totalDePontos = 0;
         materias = new HashMap<>();
         lastMateria = "";
         lastValues = new int[]{};
@@ -19,16 +21,17 @@ public class GerenciaMateria {
 
     public GerenciaMateria(String buf) {
         String []lines = buf.split("\n");
-        totalDePontos = Integer.valueOf(lines[0]);
-        for (int i=1; i<lines.length; i++)
-            materias.put(lines[i].substring(0, lines[i].indexOf(",")), new Materia(lines[i]));
+        materias = new HashMap<>();
+        for (String line : lines) {
+            materias.put(line.substring(0, line.indexOf(",")), new Materia(line));
+        }
     }
 
-    public void addMateria(String nome, int totalDeAulas) throws Exception {
+    public void addMateria(String nome, int totalDeAulas) throws DuplicateKeyException {
         if (!materias.containsKey(nome))
             materias.put(nome, new Materia(nome, totalDeAulas));
         else {
-            throw new Exception("Erro adicao de materia: Materia ja existe");
+            throw new DuplicateKeyException("Materia jah existe", new Throwable(nome));
         }
     }
 
@@ -38,48 +41,67 @@ public class GerenciaMateria {
 
     public void addFaltas(String materia, int faltas, int faltasJustificadas){
         Materia m = materias.get(materia);
-        int []estado = m.getEstado();
+        int f = m.getFaltas();
+        int fj = m.getFaltasJustificadas();
         try{
             m.addFaltas(faltas);
             m.addFaltasJustificadas(faltasJustificadas);
-            totalDePontos = faltas*3 + faltasJustificadas;
         } catch (Exception e){
-            m.returnState(estado[0],estado[1]);
+            Log.e(TAG,Log.getStackTraceString(e));
+            m.returnState(f,fj);
         }
     }
 
     public void undo(){
         Materia m = materias.get(lastMateria);
-        totalDePontos -= (lastValues[0] * 3) + lastValues[1];
         m.returnState(lastValues[0],lastValues[1]);
     }
 
     public int getTotalDePontos(){
-        return totalDePontos;
+        int total = 0;
+        for (Materia m: materias.values()){
+            total += m.getFaltas()*3 + m.getFaltasJustificadas();
+        }
+        return total;
     }
 
     public Set<String> getNomes(){
         return materias.keySet();
     }
 
-    public float getPorcentagem(String materia){
+    public int getPorcentagem(String materia){
         try {
             return materias.get(materia).getPercentualDeFaltas();
         } catch (Exception e) {
-            return 0.0f;
+            return 0;
         }
     }
 
-    private String serialize(){
-        String output = Integer.toString(totalDePontos)+"\n";
+    public String getDistribution(String materia){
+        return Integer.toString(materias.get(materia).getFaltas())+"/"+
+                Integer.toString(materias.get(materia).getFaltasJustificadas());
+    }
+
+    public String serialize(){
+        String output = "";
         for (Materia materia : materias.values()) {
             output += materia.serialize() + "\n";
         }
         return output;
     }
 
-    public int[] getFaltasDistribution(String materia){
-        return materias.get(materia).getEstado();
+    public int getTotalAulas(String materia){
+        return materias.get(materia).getTotalDeAulas();
     }
+
+    public int getTotalFaltas(String materia){
+        return materias.get(materia).getTotalDeFaltas();
+    }
+
+    public int size(){
+        return materias.size();
+    }
+
+
 
 }

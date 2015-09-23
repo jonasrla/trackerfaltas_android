@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#236467</color>
+    <color name="lightBlue">#67989A</color>
+    <color name="darkBlue">#0D4A4D</color>
+    <color name="deepBlue">#003133</color>
+    <color name="red">#AA3C39</color>
+    <color name="lightRed">#D46D6A</color>
+    <color name="darkRed">#801815</color>
+    <color name="deepRed">#550200</color>
+    <color name="yellow">#AA6D39</color>
+    <color name="lightYellow">#FFD1AA</color>
+    <color name="darkYellow">#804615</color>
+    <color name="deepYellow">#552700</color>
+    <color name="green">#2D8633</color>
+    <color name="lightGreen">#86C98A</color>
+    <color name="darkGreen">#116416</color>
+    <color name="deepGreen">#004304</color>
+    <color name="button">#FFFFFF</color>
+</resources>

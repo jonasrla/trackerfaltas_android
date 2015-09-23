@@ -23,7 +23,7 @@ public class Materia {
     }
 
     public void addFaltas(int afaltas) throws Exception {
-        if (totalDeAulas != 0 && (faltas+afaltas+faltasJustificadas) < totalDeAulas) {
+        if (totalDeAulas == 0 || (faltas+afaltas+faltasJustificadas) < totalDeAulas) {
             faltas += afaltas;
         } else {
             throw new Exception("Erro na adicao: Extrapolou o total de aulas");
@@ -31,27 +31,42 @@ public class Materia {
     }
 
     public void addFaltasJustificadas(int ajfaltas) throws Exception {
-        if (totalDeAulas != 0 && (faltas+ajfaltas+faltasJustificadas) < totalDeAulas) {
+        if (totalDeAulas == 0 || (faltas+ajfaltas+faltasJustificadas) < totalDeAulas) {
             faltasJustificadas += ajfaltas;
         } else {
             throw new Exception("Erro na adicao: Extrapolou o total de aulas");
         }
     }
 
-    public float getPercentualDeFaltas() throws Exception {
-        if (totalDeAulas != 0)
-            return (float) (faltas + faltasJustificadas) / totalDeAulas;
+    public int getPercentualDeFaltas() throws Exception {
+        if (totalDeAulas != 0) {
+            float a = (float) (faltas + faltasJustificadas)*100 / totalDeAulas;
+            return (int) a;
+        }
         else
             throw new Exception("Total de aulas não definidos");
     }
 
-    public int[] getEstado(){
-        return new int[]{faltas, faltasJustificadas};
+
+    public int getFaltasJustificadas(){
+        return faltasJustificadas;
+    }
+
+    public int getFaltas(){
+        return faltas;
+    }
+
+    public int getTotalDeAulas(){
+        return totalDeAulas;
     }
 
 
     public String serialize(){
         return nome+","+Integer.toString(faltas)+","+Integer.toString(faltasJustificadas)
         +","+Integer.toString(totalDeAulas);
+    }
+
+    public int getTotalDeFaltas() {
+        return faltas + faltasJustificadas;
     }
 }
